@@ -20,16 +20,19 @@ const DashboardLayout = ({children}:Props) => {
      
      
       
-         <div className='flex-1 flex flex-col overflow-hidden'>
+         <div className='flex-1 flex flex-row overflow-hidden gap-6 '>
+          
             <aside className="relative z-20 shadow-2xl overflow-hidden">
           <Sidebar/>
         </aside>
-
-           
-            <main className='flex-1  p-6'>
+         <main className='flex-1 mr-6  '>
                 {children}
             </main>
+           
+            
         </div>
+
+       
     </div>
   )
 }

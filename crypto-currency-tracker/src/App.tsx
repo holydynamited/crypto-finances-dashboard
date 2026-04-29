@@ -1,6 +1,6 @@
 import Layout from './layouts/Layout';
 import DashboardLayout from './layouts/DashboardLayout';
-import AssetsList from './components/AssetsList';
+import AssetsList from './components/assets-list/AssetsList';
 import './App.css'
 
 function App() {

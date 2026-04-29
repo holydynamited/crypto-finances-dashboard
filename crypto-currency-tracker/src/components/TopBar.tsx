@@ -44,7 +44,7 @@ const TopBar = () => {
         <button className='
         flex items-center 
         bg-[#FCD535]  
-        px-4 py-2 rounded-lg 
+        px-3 py-2 rounded-lg 
         font-medium hover:bg-[#eabc26]
         transition-colors
         duration-300
@@ -65,6 +65,12 @@ const TopBar = () => {
           focus:ring-1 focus:ring-[#FCD535]
            transition-all"
         />
+
+
+        <label className="flex items-center gap-2 text-xs text-gray-400 cursor-pointer">
+        <input type="checkbox" className="rounded border-gray-700 bg-transparent" />
+        Hide small assets
+      </label>
       </div>
       
     </div>
