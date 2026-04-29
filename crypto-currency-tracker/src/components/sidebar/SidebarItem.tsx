@@ -1,19 +1,20 @@
 import React from 'react'
-import type {ReactNode} from "react"
 
+import type { SidebarItems } from '../../data/data'
 
 type Props = {
-item:{
-    label:string,
-    path:string,
-    icon : ReactNode
-}
-
+  item : SidebarItems
 }
 
 
-const SidebarItem = ({item }:Props) => {
+
+
+
+const SidebarItem:React.FC<Props> = ({item }:Props) => {
+  const Icon = item.icon;
+  
   return (
+    
     
                <div className='
                flex gap-3
@@ -27,7 +28,7 @@ const SidebarItem = ({item }:Props) => {
                hover:border-l-[#FCD535]
                cursor-pointer
                transition-colors duration-300
-               '>{item.icon}
+               '>{<Icon/>}
                 <span>{item.label}</span>
                </div>
   )

@@ -1,20 +1,13 @@
 import React from 'react'
+import type {Asset} from '../../data/data'
 
 type Props = {
-  coin:{
-    id:string,
-    ticker:string,
-    name:string,
-    price:number,
-    balance:number,
-    change24h:number,
-    icon:string
-  }
+  coin: Asset
 }
 
 
 
-const AssetRow = ({ coin }:Props) => {
+const AssetRow :React.FC<Props> =({ coin }) => {
 
   const totalValue = coin.balance * coin.price;
   return (

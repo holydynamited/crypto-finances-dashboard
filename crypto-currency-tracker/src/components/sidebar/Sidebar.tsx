@@ -1,12 +1,9 @@
 import React from 'react'
+
 import SidebarItem from './SidebarItem'
-import {House, BriefcaseBusiness} from 'lucide-react'
 
-const items = [
-  {label:"Assets", path:"/assets", icon:<House/>},
-  {label:"Portfolio", path:"/portfolio", icon:<BriefcaseBusiness/>},
-]
 
+import { items } from '../../data/data'
 
 
 const Sidebar = () => {

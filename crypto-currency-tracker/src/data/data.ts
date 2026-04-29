@@ -1,4 +1,18 @@
-export const assets = [
+
+import { House, BriefcaseBusiness, type LucideIcon } from "lucide-react";
+
+export interface Asset {
+  id: string;
+  ticker: string;
+  name: string;
+  price: number;
+  balance: number;
+  change24h: number;
+  icon: string;
+}
+
+
+export const assets:Asset[] = [
   {
     id: '1',
     ticker: 'BTC',
@@ -47,3 +61,15 @@ export const assets = [
   
   
 ];
+
+
+
+export interface SidebarItems {
+  label: string;
+  path: string;
+  icon: LucideIcon;
+}
+export const items: SidebarItems[]= [
+  {label:"Assets", path:"/assets", icon: House},
+  {label:"Portfolio", path:"/portfolio", icon: BriefcaseBusiness},
+]
