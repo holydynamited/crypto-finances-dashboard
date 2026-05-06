@@ -1,5 +1,5 @@
 import React from 'react'
-import { Plus } from 'lucide-react'
+
 import BanansLogo from '../assets/logo.webp'
 
 const TopBar = () => {
@@ -16,6 +16,8 @@ const TopBar = () => {
       <div className='
       flex items-center
       gap-2
+      cursor-pointer
+
       
       '>
 
@@ -41,36 +43,10 @@ const TopBar = () => {
       gap-4
       '>
 
-        <button className='
-        flex items-center 
-        bg-[#FCD535]  
-        px-3 py-2 rounded-lg 
-        font-medium hover:bg-[#eabc26]
-        transition-colors
-        duration-300
-        cursor-pointer
-        '>
-          <Plus size={20} />
-          
-        </button>
         
-        <input 
-          type="text" 
-          placeholder="Search assets..."
-          className="
-          w-64 px-4 py-2 
-          bg-[#1E2329] text-white 
-          placeholder-[#848E9C] 
-          rounded-lg outline-none 
-          focus:ring-1 focus:ring-[#FCD535]
-           transition-all"
-        />
 
 
-        <label className="flex items-center gap-2 text-xs text-gray-400 cursor-pointer">
-        <input type="checkbox" className="rounded border-gray-700 bg-transparent" />
-        Hide small assets
-      </label>
+        
       </div>
       
     </div>
