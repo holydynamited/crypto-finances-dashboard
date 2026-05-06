@@ -1,26 +1,26 @@
-import Layout from './layouts/Layout';
-import DashboardLayout from './layouts/DashboardLayout';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
 import AssetsList from './components/assets-list/AssetsList';
-import './App.css'
+import Portfolio from './components/Portfolio';
+
+
 
 function App() {
- 
-
   return (
-    
-      <Layout>
-
-
-     
-        <DashboardLayout>
-
-        <AssetsList/>
-
-        </DashboardLayout>
+    <BrowserRouter>
+   
+      < MainLayout>
+        <Routes>
         
-
-      </Layout>
+          <Route path="/assets" element={<AssetsList />} />
+          
+        
+          <Route path="/portfolio" element={<Portfolio />} />
+        </Routes>
+      </ MainLayout>
+     
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
