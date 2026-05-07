@@ -1,0 +1,9 @@
+.recharts-surface:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+/* На всякий случай для самого wrapper'а, если клик попадет мимо секторов */
+.recharts-wrapper:focus {
+  outline: none !important;
+}

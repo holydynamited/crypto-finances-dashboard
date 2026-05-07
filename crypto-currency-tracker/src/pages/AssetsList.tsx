@@ -1,7 +1,7 @@
 import React from 'react'
 import {Plus} from "lucide-react"
-import AssetRow from './AssetRow';
-import { assets } from '../../data/data';
+import AssetRow from '../components/assets-list/AssetRow';
+import { assets } from '../data/data';
 
 
 

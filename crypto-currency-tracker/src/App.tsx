@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
-import AssetsList from './components/assets-list/AssetsList';
-import Portfolio from './components/Portfolio';
+import AssetsList from './pages/AssetsList';
+import Portfolio from './pages/Portfolio';
 
 
 
