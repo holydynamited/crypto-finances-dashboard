@@ -8,8 +8,10 @@ type Props = {
 
 
 const AssetRow :React.FC<Props> =({ coin }) => {
-
-  const totalValue = coin.balance * coin.price;
+  const price = coin.price ?? 0;
+  const change24h = coin.change24h ?? 0;
+ 
+  const totalValue = coin.balance * price ;
   return (
    <div className="flex items-center justify-between py-3 px-4 hover:bg-[#2b3139] rounded-xl transition-colors cursor-pointer group  border-gray-800/50 last:border-0">
   
@@ -36,14 +38,15 @@ const AssetRow :React.FC<Props> =({ coin }) => {
 
   <div className='flex flex-col items-end w-1/3'>
      <span className="text-white text-sm font-medium">
-      ${coin.price} 
+      ${price} 
     </span>
   </div>
 
  
   <div className="flex flex-col items-end w-1/4">
-    <span className={`text-sm font-medium ${coin.change24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-      {coin.change24h >= 0 ? '+' : ''}{coin.change24h}%
+    <span className={`text-sm font-medium ${change24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+      {change24h >= 0 ? '+' : ''}
+      {change24h.toFixed(2)}%
     </span>
     
    

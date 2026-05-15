@@ -5,118 +5,79 @@ export interface Asset {
   id: string;
   ticker: string;
   name: string;
-  price: number;
   balance: number;
-  change24h: number;
   icon: string;
+  price?: number;
+  change24h?: number;
 }
 
 
-export const assets:Asset[] = [
+export const assetsConfig : Asset[]= [
   {
-    id: '1',
+    id: 'bitcoin', 
     ticker: 'BTC',
     name: 'Bitcoin',
-    price: 76296.91,
-    balance: 10, 
-    change24h: 2.4,
+    balance: 10,
     icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
   },
   {
-    id: '2',
+    id: 'ethereum',
     ticker: 'ETH',
     name: 'Ethereum',
-    price: 2300.12,
     balance: 10.2504,
-    change24h: -1.2,
     icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png'
   },
   {
-    id: '3',
+    id: 'solana',
     ticker: 'SOL',
     name: 'Solana',
-    price: 82.80,
     balance: 60.5,
-    change24h: 5.7,
     icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png'
   },
   {
-    id: '4',
-    ticker: 'BNB',
-    name: 'Banans Coin', 
-    price: 630.00,
-    balance: 10.0,
-    change24h: 0.5,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png'
+    id: 'sui',
+    ticker: 'SUI',
+    name: 'Sui',
+    balance: 1250.5,
+    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/sui/info/logo.png'
   },
   {
-    id: '5',
-    ticker: 'TON',
-    name: 'Toncoin',
-    price: 1.20,
-    balance: 500.0,
-    change24h: -3.1,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ton/info/logo.png'
-  }
-  ,
-  {
-    id: '3',
-    ticker: 'SOL',
-    name: 'Solana',
-    price: 82.80,
-    balance: 60.5,
-    change24h: 5.7,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png'
+    id: 'cardano',
+    ticker: 'ADA',
+    name: 'Cardano',
+    balance: 5400.0,
+    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/cardano/info/logo.png'
   },
   {
-    id: '4',
-    ticker: 'BNB',
-    name: 'Banans Coin', 
-    price: 630.00,
-    balance: 10.0,
-    change24h: 0.5,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png'
+    id: 'polkadot',
+    ticker: 'DOT',
+    name: 'Polkadot',
+    balance: 120.75,
+    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polkadot/info/logo.png'
   },
   {
-    id: '5',
-    ticker: 'TON',
-    name: 'Toncoin',
-    price: 1.20,
-    balance: 500.0,
-    change24h: -3.1,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ton/info/logo.png'
+    id: 'chainlink',
+    ticker: 'LINK',
+    name: 'Chainlink',
+    balance: 85.2,
+    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png'
+  },
+  {
+    id: 'dogecoin',
+    ticker: 'DOGE',
+    name: 'Dogecoin',
+    balance: 15000.0,
+    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/doge/info/logo.png'
+  },
+  {
+    id: 'avalanche-2',
+    ticker: 'AVAX',
+    name: 'Avalanche',
+    balance: 45.33,
+    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/avalanchex/info/logo.png'
   },
   
-  {
-    id: '3',
-    ticker: 'SOL',
-    name: 'Solana',
-    price: 82.80,
-    balance: 60.5,
-    change24h: 5.7,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png'
-  },
-  {
-    id: '4',
-    ticker: 'BNB',
-    name: 'Banans Coin', 
-    price: 630.00,
-    balance: 10.0,
-    change24h: 0.5,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png'
-  },
-  {
-    id: '5',
-    ticker: 'TON',
-    name: 'Toncoin',
-    price: 1.20,
-    balance: 500.0,
-    change24h: -3.1,
-    icon: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ton/info/logo.png'
-  }
-  
-];
-
+]
 
 
 export interface SidebarItems {

@@ -1,11 +1,40 @@
 import React from 'react'
+import {useQuery} from "@tanstack/react-query"
+import { fetchPrices } from '../api/cryptoApi';
 import {Plus} from "lucide-react"
 import AssetRow from '../components/assets-list/AssetRow';
-import { assets } from '../data/data';
+import { assetsConfig} from '../data/data';
 
 
 
 const AssetsList = () => {
+
+  const coinIds = assetsConfig.map((coin)=>coin.id);
+  
+  const {data:marketData, isLoading, error}=useQuery({
+      queryKey:["market-data"],
+      queryFn:()=>fetchPrices(coinIds),
+      refetchInterval: 10000,
+  
+
+
+
+  })
+
+  if (isLoading) return <div>...</div>;
+  if (error) return <div>Error</div>;
+
+
+  const assets = assetsConfig.map(asset=>({
+    ...asset,
+    price: marketData?.[asset.id]?.usd || asset.price,
+    change24h: marketData?.[asset.id]?.usd_24h_change || 0
+
+  }))
+
+
+
+
   return (
     
       <div className="mt-6 flex flex-col bg-[#1e2329] rounded-xl border border-gray-800 p-6">

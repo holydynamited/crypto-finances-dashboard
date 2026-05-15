@@ -14,7 +14,7 @@ export default function PortfolioCurve() {
   return (
     <div style={{ width: '100%', height: '300px' }}>
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={pnlData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+        <AreaChart style={{ outline: 'none' }} data={pnlData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
           <defs>
             
             <linearGradient id="colorBalance" x1="0" y1="0" x2="0" y2="1">
