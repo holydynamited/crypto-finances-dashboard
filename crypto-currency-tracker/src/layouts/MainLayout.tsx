@@ -1,5 +1,5 @@
 import React from 'react'
-import TopBar from '../components/TopBar'
+import TopBar from '../components/top-bar/TopBar'
 import Sidebar from '../components/sidebar/Sidebar';
 import type { ReactNode } from 'react'
 

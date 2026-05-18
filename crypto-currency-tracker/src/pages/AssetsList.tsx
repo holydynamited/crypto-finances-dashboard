@@ -1,7 +1,9 @@
 import React from 'react'
+import { useState } from 'react';
 import {useQuery} from "@tanstack/react-query"
-import { fetchPrices } from '../api/cryptoApi';
-import {Plus} from "lucide-react"
+import { fetchPrices, fetchPrice } from '../api/cryptoApi';
+import type {Asset} from '../data/data';
+import {Plus,Search} from "lucide-react"
 import AssetRow from '../components/assets-list/AssetRow';
 import { assetsConfig} from '../data/data';
 
@@ -9,28 +11,85 @@ import { assetsConfig} from '../data/data';
 
 const AssetsList = () => {
 
-  const coinIds = assetsConfig.map((coin)=>coin.id);
+
+  const [myAssets, setMyAssets] = useState<Asset[]>(assetsConfig);
+  const [query, setQuery] = useState<string>('');
+  const [searchedTarget, setSearchedTarget] = useState<string>('');
+
+
+
+  //single coin search
+
+  const {data:searchedCoin, isFetching:isSearching,}= useQuery({
+    queryKey: ["search-single-coin", searchedTarget],
+    queryFn: () => fetchPrice(searchedTarget),
+    enabled: searchedTarget.length > 0,
+    staleTime: 1000 * 30
+  })
+
+
+
+
+
+
+  const coinIds = myAssets.map((coin)=>coin.id);
   
+  //all assets updating
+
   const {data:marketData, isLoading, error}=useQuery({
-      queryKey:["market-data"],
+      queryKey:["market-data", coinIds],
       queryFn:()=>fetchPrices(coinIds),
       refetchInterval: 10000,
-  
-
-
-
   })
+
+  
+    const handleAddAsset = () => {
+    if (!searchedCoin || !searchedTarget) return;
+
+    const targetData = searchedCoin[searchedTarget];
+    if (!targetData) return;
+
+    
+    const isAlreadyAdded = myAssets.some(asset => asset.id === searchedTarget);
+    if (isAlreadyAdded) {
+      alert("This asset is already added!");
+      return;
+    }
+ 
+
+    const newAsset : Asset = {
+      id: searchedTarget,
+      ticker: searchedTarget.slice(0, 3).toUpperCase(),
+      name: searchedTarget.charAt(0).toUpperCase() + searchedTarget.slice(1),
+      balance:1,
+      icon:"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/icon/generic.svg",
+      
+
+    }
+
+  setMyAssets(prev => [...prev, newAsset]);
+    
+    setQuery('');
+    setSearchedTarget('');
+ 
+
+};
 
   if (isLoading) return <div>...</div>;
   if (error) return <div>Error</div>;
 
+  //
 
-  const assets = assetsConfig.map(asset=>({
+  const assets = myAssets.map(asset=>({
     ...asset,
     price: marketData?.[asset.id]?.usd || asset.price,
     change24h: marketData?.[asset.id]?.usd_24h_change || 0
 
   }))
+
+
+
+
 
 
 
@@ -57,9 +116,31 @@ const AssetsList = () => {
           rounded-lg outline-none 
           focus:ring-1 focus:ring-[#7a7a77]
            transition-all"
+          value={query}
+          onChange={(e)=>setQuery(e.target.value)}
+
         />
 
-         <button className='
+         <button 
+        onClick={()=>setSearchedTarget(query.toLowerCase().trim())}
+        className='
+        flex items-center 
+        bg-transparent 
+        px-2 py-2 rounded-lg 
+        font-medium hover:bg-[#626262]
+        transition-colors
+        duration-300
+        cursor-pointer
+        
+        '>
+          <Search className={isSearching ? "text-yellow-500 animate-pulse" : "text-gray-400"} size={20} />
+          
+        </button>
+
+
+    <button
+        onClick={handleAddAsset}
+        className='
         flex items-center 
         bg-transparent 
         px-2 py-2 rounded-lg 
@@ -68,10 +149,10 @@ const AssetsList = () => {
         duration-300
         cursor-pointer
         '>
+          
           <Plus className="text-gray-400" size={20} />
           
         </button>
-
        
       
       
@@ -103,6 +184,7 @@ const AssetsList = () => {
 </div>
   );
 }
+
 
 export default AssetsList
 

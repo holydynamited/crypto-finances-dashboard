@@ -1,6 +1,6 @@
 import React from 'react'
 
-import BanansLogo from '../assets/logo.webp'
+import BanansLogo from '../../assets/logo.webp'
 
 const TopBar = () => {
   return (
