@@ -3,11 +3,11 @@ import React from 'react'
 
 interface SearchedCoin  {
   id: string;
-  ticker: string;
+  symbol: string;
   name: string;
-  icon: string;
-  price?: number;
-  change24h?: number;
+  image: string;
+  current_price?: number;
+  price_change_percentage24h?: number;
 }
 
 
@@ -17,9 +17,12 @@ type Props = {
 
 
 const SearchedResultRow:React.FC<Props> = ({ coin }) => {
+  const { image, symbol, name, current_price, price_change_percentage24h } = coin;
 
-  const price = coin.price ?? 0;
-  const change24h = coin.change24h ?? 0;
+  const price = current_price ?? 0;
+  const change24h = price_change_percentage24h ?? 0;
+  const formattedSymbol = symbol.toUpperCase();
+
  
 
   return (
@@ -27,10 +30,10 @@ const SearchedResultRow:React.FC<Props> = ({ coin }) => {
   
  
   <div className="flex items-center gap-3 w-1/3">
-    <img src={coin.icon} alt={coin.ticker} className="w-8 h-8 rounded-full bg-gray-700" />
+    <img src={image} alt={formattedSymbol} className="w-8 h-8 rounded-full bg-gray-700" />
     <div className="flex flex-col">
-      <span className="text-white font-semibold text-sm leading-tight">{coin.ticker}</span>
-      <span className="text-gray-500 text-xs">{coin.name}</span>
+      <span className="text-white font-semibold text-sm leading-tight">{formattedSymbol}</span>
+      <span className="text-gray-500 text-xs">{name}</span>
     </div>
   </div>
 

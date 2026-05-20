@@ -33,12 +33,13 @@ export const fetchPrices = async (ids:string[]) => {
 
 export const fetchPrice = async (id:string) => {
 
-    const  {data} = await cryptoApi.get('/simple/price', {
+    const  {data} = await cryptoApi.get('/coins/markets', {
     params: {
+      vs_currency: 'usd',
       ids: id.toLowerCase().trim(),
-      vs_currencies: 'usd',
-      include_24hr_change: true,
+      price_change_percentage: '24h',
     },
   });
-  return data;
+  console.log(data);
+  return data[0];
 };

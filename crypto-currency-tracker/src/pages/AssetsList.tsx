@@ -95,7 +95,10 @@ const AssetsList = () => {
 
     const isLooking = !!searchedTarget;
 
-    const searchResult = searchedCoin?.[searchedTarget];
+    const searchResult = searchedCoin;
+    
+
+    
     const isResultReady = !!searchResult;
 
     
@@ -200,10 +203,15 @@ const AssetsList = () => {
 
  
     <div className="flex items-center px-4 pb-2 text-gray-500 text-[11px] font-medium uppercase tracking-widest">
-      <div className="w-[35%] text-left">Coin</div>
-      <div className="w-[20%] text-right pr-4">Amount</div>
-      <div className="w-[25%] text-right">Price</div>
-      <div className="w-[20%] text-right">Today's PnL</div>
+      { !isLooking && (
+        <>
+          <div className="w-[35%] text-left">Coin</div>
+          <div className="w-[20%] text-right pr-4">Amount</div>
+          <div className="w-[25%] text-right">Price</div>
+          <div className="w-[20%] text-right">Today's PnL</div>
+        </>
+      )
+      }
     </div>
 
   
