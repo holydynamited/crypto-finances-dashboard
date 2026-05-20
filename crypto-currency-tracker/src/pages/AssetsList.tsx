@@ -3,9 +3,13 @@ import { useState } from 'react';
 import {useQuery} from "@tanstack/react-query"
 import { fetchPrices, fetchPrice } from '../api/cryptoApi';
 import type {Asset} from '../data/data';
-import {Plus,Search} from "lucide-react"
+import {Plus,Search,ChevronLeft} from "lucide-react"
 import AssetRow from '../components/assets-list/AssetRow';
+import SearchedResultRow from '../components/assets-list/SearchedResultRow';
 import { assetsConfig} from '../data/data';
+
+
+
 
 
 
@@ -41,6 +45,8 @@ const AssetsList = () => {
       queryFn:()=>fetchPrices(coinIds),
       refetchInterval: 10000,
   })
+
+  
 
   
     const handleAddAsset = () => {
@@ -87,10 +93,22 @@ const AssetsList = () => {
 
   }))
 
+    const isLooking = !!searchedTarget;
+
+    const searchResult = searchedCoin?.[searchedTarget];
+    const isResultReady = !!searchResult;
+
+    
 
 
+  const handleBack = () => {
+     setQuery('');
+     setSearchedTarget('');
+  };
 
+  
 
+  
 
 
 
@@ -120,6 +138,26 @@ const AssetsList = () => {
           onChange={(e)=>setQuery(e.target.value)}
 
         />
+
+        {
+        isLooking &&(
+          <button
+          onClick={handleBack}
+          className='
+          flex items-center 
+          bg-transparent 
+          px-2 py-2 rounded-lg 
+          font-medium hover:bg-[#626262]
+          transition-colors
+          duration-300
+          cursor-pointer
+        
+        '>
+          <ChevronLeft className="text-gray-400" size={20} />
+            
+          </button>
+        )
+        }
 
          <button 
         onClick={()=>setSearchedTarget(query.toLowerCase().trim())}
@@ -177,15 +215,28 @@ const AssetsList = () => {
   [&::-webkit-scrollbar-thumb]:bg-gray-300
   dark:[&::-webkit-scrollbar-track]:bg-neutral-700
   dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
-     {assets.map((coin) => (
-      <AssetRow key={coin.id} coin={coin} />
-    ))}
-  </div>
+    {
+      isLooking ? (
+        isSearching ? (
+          <div>Loading...</div>
+        ) : isResultReady ? (
+          <SearchedResultRow coin={searchedCoin} />
+        ) : (
+          <div className="text-gray-500 text-sm p-4">
+            No results found
+          </div>
+        )
+      ) : (
+        assets.map((coin) => (
+          <AssetRow key={coin.id} coin={coin} />
+        ))
+      )
+    }
+
 </div>
-  );
+</div>
+);
 }
 
 
 export default AssetsList
-
-
