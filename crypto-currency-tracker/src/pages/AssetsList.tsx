@@ -1,11 +1,12 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import {useQuery} from "@tanstack/react-query"
 import { fetchPrices, fetchPrice } from '../api/cryptoApi';
 import type {Asset} from '../data/data';
 import {Plus,Search,ChevronLeft} from "lucide-react"
 import type {UiCoin} from '../types/types'
 import AssetRow from '../components/assets-list/AssetRow';
+import AddModal from '../components/add-modal/A/AddModal';
 
 import { assetsConfig} from '../data/data';
 
@@ -17,9 +18,27 @@ import { assetsConfig} from '../data/data';
 const AssetsList = () => {
 
 
-  const [myAssets, setMyAssets] = useState<Asset[]>(assetsConfig);
+  const [myAssets, setMyAssets] = useState<Asset[]>(() => {
+  const saved = localStorage.getItem("portfolio");
+
+  return saved ? JSON.parse(saved) : assetsConfig;
+});
+
+useEffect(() => {
+  localStorage.setItem("portfolio", JSON.stringify(myAssets));
+}, [myAssets]);
+
+
   const [query, setQuery] = useState<string>('');
   const [searchedTarget, setSearchedTarget] = useState<string>('');
+
+  const [selectedCoin, setSelectedCoin] = useState<UiCoin|null>(null);
+
+
+
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
 
 
 
@@ -50,37 +69,28 @@ const AssetsList = () => {
   
 
   
-    const handleAddAsset = () => {
-    if (!searchedCoin || !searchedTarget) return;
+    const handleAddAsset = (coin:UiCoin, amount:number) => {
+      setMyAssets(prev => {
+        const existingAsset = prev.find(a => a.id === coin.id);
+        if (existingAsset) {
+          return prev.map(a =>
+            a.id === coin.id ? { ...a, balance: a.balance + amount } : a
+          );
+        }
 
-    const targetData = searchedCoin[searchedTarget];
-    if (!targetData) return;
+        // if asset doesn't exist, add it
+        const newAsset: Asset = {
+          id: coin.id,
+          name: coin.name,
+          ticker: coin.symbol,
+          icon: coin.image,
+          balance: amount,
+          price: coin.price ?? 0,
+        };
 
-    
-    const isAlreadyAdded = myAssets.some(asset => asset.id === searchedTarget);
-    if (isAlreadyAdded) {
-      alert("This asset is already added!");
-      return;
-    }
- 
-
-    const newAsset : Asset = {
-      id: searchedTarget,
-      ticker: searchedTarget.slice(0, 3).toUpperCase(),
-      name: searchedTarget.charAt(0).toUpperCase() + searchedTarget.slice(1),
-      balance:1,
-      icon:"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/icon/generic.svg",
-      
-
-    }
-
-  setMyAssets(prev => [...prev, newAsset]);
-    
-    setQuery('');
-    setSearchedTarget('');
- 
-
-};
+        return [...prev, newAsset];
+      });
+    };
 
   if (isLoading) return <div>...</div>;
   if (error) return <div>Error</div>;
@@ -114,6 +124,16 @@ const AssetsList = () => {
      setSearchedTarget('');
   };
 
+  const onAdd = () =>{
+    if (!normalizedResult) return;
+    setSelectedCoin(normalizedResult);
+
+    setOpenModal(!openModal);
+  }
+
+  const onClose = ()=>{
+    setOpenModal(false);
+  }
 
   const inPortfolio = myAssets.find(asset=>asset.id===searchedTarget);
 
@@ -212,8 +232,10 @@ const AssetsList = () => {
         </button>
 
 
-    <button
-        onClick={handleAddAsset}
+    {isLooking&&(<button
+        onClick={onAdd}
+        
+      
         className='
         flex items-center 
         bg-transparent 
@@ -224,10 +246,13 @@ const AssetsList = () => {
         cursor-pointer
         '>
           
-          <Plus className="text-gray-400" size={20} />
+          <Plus 
+          
+          className="text-gray-400" size={20} />
           
         </button>
-       
+    )
+}
       
       
       
@@ -239,7 +264,7 @@ const AssetsList = () => {
       { !isLooking && (
         <>
           <div className="w-[35%] text-left">Coin</div>
-          <div className="w-[20%] text-right pr-4">Amount</div>
+          <div className="w-[40%] text-right pr-4">Amount</div>
           <div className="w-[25%] text-right">Price</div>
           <div className="w-[20%] text-right">Today's PnL</div>
         </>
@@ -272,7 +297,24 @@ const AssetsList = () => {
   }
 
 </div>
+{
+  openModal&&selectedCoin&&(
+    <AddModal onClose={onClose}
+    coin = {selectedCoin}
+    
+    onConfirm={(amount)=>{
+      handleAddAsset(selectedCoin, amount);
+      onClose();
+      
+      setSelectedCoin(null);
+    }}/>
+  )
+}
 </div>
+
+
+
+
 );
 }
 
