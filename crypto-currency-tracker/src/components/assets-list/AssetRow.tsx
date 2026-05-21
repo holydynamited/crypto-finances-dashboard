@@ -3,9 +3,10 @@ import type { UiCoin } from "../../types/types";
 
 type Props = {
   coin: UiCoin;
+  isLooking?: boolean;
 };
 
-const AssetRow: React.FC<Props> = ({ coin }) => {
+const AssetRow: React.FC<Props> = ({ coin, isLooking }) => {
   const {
     image,
     symbol,
@@ -33,13 +34,26 @@ const AssetRow: React.FC<Props> = ({ coin }) => {
         />
 
         <div className="flex flex-col">
+          
           <span className="text-white font-semibold text-sm">
+            
             {symbol.toUpperCase()}
           </span>
           <span className="text-gray-500 text-xs">
+             
             {name} 
+            
           </span>
         </div>
+      </div>
+
+
+      <div className=" flex items-center justify-between w-1/3">
+        {inPortfolio && isLooking &&(
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
+              In portfolio
+          </span>
+          )}
       </div>
 
     
@@ -48,6 +62,7 @@ const AssetRow: React.FC<Props> = ({ coin }) => {
           <>
 
             <span className="text-white text-sm font-medium">
+             
               {balance} {symbol} 
             </span>
 

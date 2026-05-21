@@ -261,7 +261,7 @@ const AssetsList = () => {
     isSearching ? (
       <div className='text-gray-500 text-xs'>Loading...</div>
     ) : normalizedResult ? (
-      <AssetRow coin={normalizedResult} />
+      <AssetRow coin={normalizedResult} isLooking = {isLooking} />
     ) : (
       <div className='text-gray-500 text-xs'>No results</div>
     )
