@@ -7,7 +7,7 @@ interface SearchedCoin  {
   name: string;
   image: string;
   current_price?: number;
-  price_change_percentage24h?: number;
+  price_change_percentage_24h?: number;
 }
 
 
@@ -17,10 +17,10 @@ type Props = {
 
 
 const SearchedResultRow:React.FC<Props> = ({ coin }) => {
-  const { image, symbol, name, current_price, price_change_percentage24h } = coin;
+  const { image, symbol, name, current_price, price_change_percentage_24h } = coin;
 
   const price = current_price ?? 0;
-  const change24h = price_change_percentage24h ?? 0;
+  const change24h = price_change_percentage_24h ?? 0;
   const formattedSymbol = symbol.toUpperCase();
 
  

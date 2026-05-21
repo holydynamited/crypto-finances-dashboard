@@ -4,8 +4,9 @@ import {useQuery} from "@tanstack/react-query"
 import { fetchPrices, fetchPrice } from '../api/cryptoApi';
 import type {Asset} from '../data/data';
 import {Plus,Search,ChevronLeft} from "lucide-react"
+import type {UiCoin} from '../types/types'
 import AssetRow from '../components/assets-list/AssetRow';
-import SearchedResultRow from '../components/assets-list/SearchedResultRow';
+
 import { assetsConfig} from '../data/data';
 
 
@@ -86,20 +87,24 @@ const AssetsList = () => {
 
   //
 
-  const assets = myAssets.map(asset=>({
-    ...asset,
-    price: marketData?.[asset.id]?.usd || asset.price,
-    change24h: marketData?.[asset.id]?.usd_24h_change || 0
-
-  }))
+  const assets: UiCoin[] = myAssets.map(asset => ({
+    id: asset.id,
+    symbol: asset.ticker,
+    name: asset.name,
+    image: asset.icon,
+    balance: asset.balance,
+    price: marketData?.[asset.id]?.usd || asset.price || 0,
+    change24h: marketData?.[asset.id]?.usd_24h_change || 0,
+    inPortfolio: true
+  }));
 
     const isLooking = !!searchedTarget;
 
-    const searchResult = searchedCoin;
+    
     
 
     
-    const isResultReady = !!searchResult;
+    
 
     
 
@@ -108,6 +113,33 @@ const AssetsList = () => {
      setQuery('');
      setSearchedTarget('');
   };
+
+
+  const inPortfolio = myAssets.find(asset=>asset.id===searchedTarget);
+
+
+  const normalizedResult: UiCoin | null = inPortfolio
+  ? {
+      id: inPortfolio.id,
+      symbol: inPortfolio.ticker,
+      name: inPortfolio.name,
+      image: inPortfolio.icon,
+      price: marketData?.[searchedTarget]?.usd ?? 0,
+      change24h: marketData?.[searchedTarget]?.usd_24h_change ?? 0,
+      inPortfolio: true,
+      balance: inPortfolio.balance,
+    }
+  : searchedCoin
+  ? {
+      id: searchedCoin.id,
+      symbol: searchedCoin.symbol,
+      name: searchedCoin.name,
+      image: searchedCoin.image,
+      price: searchedCoin.current_price ?? 0,
+      change24h: searchedCoin.price_change_percentage_24h ?? 0,
+      inPortfolio: false,
+    }
+  : null;
 
   
 
@@ -121,7 +153,8 @@ const AssetsList = () => {
   
   
   <div className="flex justify-between items-center mb-6">
-    <h3 className="text-xl font-bold text-white">My Assets</h3>
+    {isLooking?(<h3 className="text-xl font-bold text-white">Search</h3>):
+    (<h3 className="text-xl font-bold text-white">My Assets</h3>)}
     
     <div className="flex items-center gap-4">
      
@@ -224,22 +257,19 @@ const AssetsList = () => {
   dark:[&::-webkit-scrollbar-track]:bg-neutral-700
   dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
     {
-      isLooking ? (
-        isSearching ? (
-          <div>Loading...</div>
-        ) : isResultReady ? (
-          <SearchedResultRow coin={searchedCoin} />
-        ) : (
-          <div className="text-gray-500 text-sm p-4">
-            No results found
-          </div>
-        )
-      ) : (
-        assets.map((coin) => (
-          <AssetRow key={coin.id} coin={coin} />
-        ))
-      )
-    }
+    isLooking ? (
+    isSearching ? (
+      <div className='text-gray-500 text-xs'>Loading...</div>
+    ) : normalizedResult ? (
+      <AssetRow coin={normalizedResult} />
+    ) : (
+      <div className='text-gray-500 text-xs'>No results</div>
+    )
+    ) : 
+    (
+    assets.map(a => <AssetRow key={a.id} coin={a} />)
+    )
+  }
 
 </div>
 </div>
