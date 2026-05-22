@@ -4,9 +4,10 @@ import type { UiCoin } from "../../types/types";
 type Props = {
   coin: UiCoin;
   isLooking?: boolean;
+  onClick: () => void;
 };
 
-const AssetRow: React.FC<Props> = ({ coin, isLooking }) => {
+const AssetRow: React.FC<Props> = ({ coin, isLooking, onClick }) => {
   const {
     image,
     symbol,
@@ -23,7 +24,8 @@ const AssetRow: React.FC<Props> = ({ coin, isLooking }) => {
   const isPositive = change24h >= 0;
 
   return (
-    <div className="flex items-center justify-between py-3 px-4 hover:bg-[#2b3139] rounded-xl transition-colors cursor-pointer group border-gray-800/50">
+    <div onClick={onClick}
+    className="flex items-center justify-between py-3 px-4 hover:bg-[#2b3139] rounded-xl transition-colors cursor-pointer group border-gray-800/50">
 
      
       <div className="flex items-center gap-3 w-1/3">
@@ -63,7 +65,7 @@ const AssetRow: React.FC<Props> = ({ coin, isLooking }) => {
 
             <span className="text-white text-sm font-medium">
              
-              {balance} {symbol} 
+              {balance} {symbol.toUpperCase()} 
             </span>
 
             <span className="text-gray-500 text-xs">
