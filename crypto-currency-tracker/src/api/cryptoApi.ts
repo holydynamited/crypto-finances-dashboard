@@ -40,6 +40,6 @@ export const fetchPrice = async (id:string) => {
       price_change_percentage: '24h',
     },
   });
-  console.log(data);
+  
   return data[0];
 };

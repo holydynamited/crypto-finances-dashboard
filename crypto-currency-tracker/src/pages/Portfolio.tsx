@@ -1,4 +1,4 @@
-import React from 'react'
+
 import DonutChart from '../components/pie-chart/DonutChart'
 import PortfolioCurve from '../components/curve/CurveChart'
 const Portfolio = () => {

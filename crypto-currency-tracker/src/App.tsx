@@ -17,7 +17,7 @@ function App() {
       < MainLayout>
         <Routes>
         
-          <Route path="/assets" element={<AssetsList />} />
+          <Route path="/" element={<AssetsList />} />
        
         
           <Route path="/portfolio" element={<Portfolio />} />

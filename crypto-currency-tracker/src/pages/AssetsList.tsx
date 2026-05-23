@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import  { useState, useEffect, useMemo, useCallback } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { fetchPrices, fetchPrice } from '../api/cryptoApi';
 import { Plus, Search, ChevronLeft } from "lucide-react";

@@ -1,4 +1,4 @@
-import React from "react";
+
 import type { UiCoin } from "../../types/types";
 
 type Props = {

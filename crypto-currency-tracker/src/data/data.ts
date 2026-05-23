@@ -86,6 +86,6 @@ export interface SidebarItems {
   icon: LucideIcon;
 }
 export const items: SidebarItems[]= [
-  {label:"Assets", path:"/assets", icon: House},
+  {label:"Assets", path:"/", icon: House},
   {label:"Portfolio", path:"/portfolio", icon: BriefcaseBusiness},
 ]

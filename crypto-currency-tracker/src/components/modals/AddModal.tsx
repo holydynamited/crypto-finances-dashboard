@@ -34,7 +34,7 @@ const AddModal: React.FC<Props> = ({ onClose, coin, onConfirm }) => {
         onClick={(e) => e.stopPropagation()}
       >
         
-        {/* HEADER */}
+        
         <div className="flex justify-between items-start mb-5">
           <div className="flex items-center gap-3">
             <img src={image} alt={name} className="w-10 h-10 rounded-full" />
@@ -57,7 +57,7 @@ const AddModal: React.FC<Props> = ({ onClose, coin, onConfirm }) => {
           </button>
         </div>
 
-        {/* INFO */}
+        
         <div className="p-3 rounded-lg flex justify-between items-center text-xs">
           <span className="text-gray-400">Current Price:</span>
           <span className="text-yellow-400 font-semibold">
@@ -65,7 +65,7 @@ const AddModal: React.FC<Props> = ({ onClose, coin, onConfirm }) => {
           </span>
         </div>
 
-        {/* INPUT */}
+        
         <div className="mt-4">
           <label className="text-[11px] text-gray-400 uppercase tracking-wider font-medium block mb-1.5">
             Amount to Add
@@ -85,7 +85,7 @@ const AddModal: React.FC<Props> = ({ onClose, coin, onConfirm }) => {
           </div>
         </div>
 
-        {/* TOTAL */}
+        
         <div className="mt-4 flex justify-between items-center px-1 text-xs">
           <span className="text-gray-400">Total Value:</span>
           <span className="text-white font-medium text-sm">
@@ -93,7 +93,7 @@ const AddModal: React.FC<Props> = ({ onClose, coin, onConfirm }) => {
           </span>
         </div>
 
-        {/* BUTTONS */}
+        
         <div className="flex gap-2 mt-6">
           <button
             onClick={onClose}
